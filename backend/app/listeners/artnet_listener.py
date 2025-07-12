@@ -9,15 +9,13 @@ class ArtNetProtocol(asyncio.DatagramProtocol):
         self.callback = callback
     def datagram_received(self, data, addr):
         if not data.startswith(ARTNET_HEADER): return
-        opcode = struct.unpack('<H', data[8:10])[0]
-        if opcode!=OP_DMX: return
+        if struct.unpack('<H', data[8:10])[0] != OP_DMX: return
         universe = struct.unpack('<H', data[14:16])[0]
         length = struct.unpack('>H', data[16:18])[0]
-        dmx_data = data[18:18+length]
-        asyncio.create_task(self.callback(universe, dmx_data))
+        dmx = data[18:18+length]
+        asyncio.create_task(self.callback(universe, dmx))
 
 async def start_artnet_listener(callback):
     loop = asyncio.get_running_loop()
-    await loop.create_datagram_endpoint(lambda: ArtNetProtocol(callback),
-                                        local_addr=('0.0.0.0', ARTNET_PORT))
+    await loop.create_datagram_endpoint(lambda: ArtNetProtocol(callback), local_addr=('0.0.0.0', ARTNET_PORT))
     print(f"Art-Net listening on {ARTNET_PORT}")

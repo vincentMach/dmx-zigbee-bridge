@@ -1,27 +1,11 @@
 <template>
   <div>
-    <h1>DMX Dashboard</h1>
-    <InputSourceSelector />
-    <div v-for="msg in messages" :key="msg.universe">
-      <strong>{{ msg.protocol }}</strong> U{{ msg.universe }}: {{ msg.channels.slice(0,16) }}
-    </div>
+    <nav>
+      <router-link to="/">Dashboard</router-link> |
+      <router-link to="/scenes">Scenes</router-link> |
+      <router-link to="/devices">Devices</router-link> |
+      <router-link to="/color-control">Color Control</router-link>
+    </nav>
+    <router-view />
   </div>
 </template>
-<script>
-import { ref, onMounted } from 'vue';
-import InputSourceSelector from './components/InputSourceSelector.vue';
-export default {
-  components: { InputSourceSelector },
-  setup() {
-    const messages = ref([]);
-    onMounted(() => {
-      const ws = new WebSocket('ws://' + window.location.hostname + '/ws/dmx');
-      ws.onmessage = e => {
-        messages.value.unshift(JSON.parse(e.data));
-        if (messages.value.length>5) messages.value.pop();
-      };
-    });
-    return { messages };
-  }
-}
-</script>

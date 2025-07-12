@@ -5,7 +5,7 @@ router = APIRouter()
 current_input_source = "dmx"
 
 class InputSourceUpdate(BaseModel):
-    source: str
+    source: str  # 'dmx', 'artnet', 'sacn'
 
 @router.post("")
 async def set_input_source(update: InputSourceUpdate):

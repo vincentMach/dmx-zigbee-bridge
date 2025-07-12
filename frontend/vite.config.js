@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+
 export default defineConfig({
   plugins: [vue()],
   server: {
@@ -7,9 +8,9 @@ export default defineConfig({
       '/api': 'http://backend:8000',
       '/ws': {
         target: 'ws://backend:8000',
-        ws: true,
-      },
-    },
+        ws: true
+      }
+    }
   },
-  base: './',
+  base: './'
 });

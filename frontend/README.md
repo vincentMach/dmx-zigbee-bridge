@@ -1,4 +1,4 @@
-# DMX-Zigbee Frontend
+# Frontend
 
 ## Setup
 ```

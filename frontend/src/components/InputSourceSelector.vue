@@ -1,7 +1,7 @@
 <template>
   <div>
     <label>Source:</label>
-    <select v-model="src" @change="changeSource">
+    <select v-model="source" @change="update">
       <option value="dmx">DMX</option>
       <option value="artnet">Art-Net</option>
       <option value="sacn">sACN</option>
@@ -13,11 +13,9 @@ import { ref } from 'vue';
 import axios from 'axios';
 export default {
   setup() {
-    const src = ref('dmx');
-    const changeSource = async () => {
-      await axios.post('/api/config', { source: src.value });
-    };
-    return { src, changeSource };
+    const source = ref('dmx');
+    const update = async () => { await axios.post('/api/config', { source: source.value }); };
+    return { source, update };
   }
 }
 </script>
