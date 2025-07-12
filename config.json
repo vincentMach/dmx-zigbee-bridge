@@ -1,7 +1,0 @@
-{
-  "1": {"device": "livingroom_light", "action": "brightness"},
-  "2": {"device": "kitchen_light", "action": "state"},
-  "3": {"device": "kitchen_light", "action": "color_r"},
-  "4": {"device": "kitchen_light", "action": "color_g"},
-  "5": {"device": "kitchen_light", "action": "color_b"}
-}
